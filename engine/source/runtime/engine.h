@@ -18,14 +18,36 @@ namespace Piccolo
         static const float s_fps_alpha;
 
     public:
+        /**
+         * Start and shutdown the engine
+         * start 和 shutdown 刚好相反
+         */
         void startEngine(const std::string& config_file_path);
         void shutdownEngine();
 
+        /**
+         * Initialize and clear the engine
+         * These two functions are called before and after the engine starts
+         * You can use them to initialize and clear the engine
+         * 这是两个空的占位函数，暂时不用关心
+         */
         void initialize();
         void clear();
 
         bool isQuit() const { return m_is_quit; }
+
+        /**
+         * The main loop of the engine
+         * The engine will call the tickOneFrame function in a loop
+         * The engine will exit the loop when the window is closed
+         */
         void run();
+        /**
+         * Tick one frame
+         * 逻辑和渲染分离架构
+         * 逻辑tick
+         * 渲染tick
+         */
         bool tickOneFrame(float delta_time);
 
         int getFPS() const { return m_fps; }

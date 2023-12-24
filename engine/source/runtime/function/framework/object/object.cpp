@@ -40,6 +40,10 @@ namespace Piccolo
 
     void GObject::tick(float delta_time)
     {
+        // tick components
+        // tick gobject上挂载的所有组件
+        // gobject本身没有功能，只是一个容器
+        // gobject的功能完全由组件实现
         for (auto& component : m_components)
         {
             if (shouldComponentTick(component.getTypeName()))
@@ -82,7 +86,8 @@ namespace Piccolo
 
         ObjectDefinitionRes definition_res;
 
-        const bool is_loaded_success = g_runtime_global_context.m_asset_manager->loadAsset(m_definition_url, definition_res);
+        const bool is_loaded_success =
+            g_runtime_global_context.m_asset_manager->loadAsset(m_definition_url, definition_res);
         if (!is_loaded_success)
             return false;
 

@@ -136,11 +136,13 @@ namespace Piccolo
 
     void Level::tick(float delta_time)
     {
+        // 关卡未加载，不执行tick
         if (!m_is_loaded)
         {
             return;
         }
 
+        // tick关卡所拥有的所有的gobject (game object)
         for (const auto& id_object_pair : m_gobjects)
         {
             assert(id_object_pair.second);
@@ -149,11 +151,14 @@ namespace Piccolo
                 id_object_pair.second->tick(delta_time);
             }
         }
+
+        // tick关卡当前激活的角色
         if (m_current_active_character && g_is_editor_mode == false)
         {
             m_current_active_character->tick(delta_time);
         }
 
+        // tick关卡所拥有的物理场景
         std::shared_ptr<PhysicsScene> physics_scene = m_physics_scene.lock();
         if (physics_scene)
         {

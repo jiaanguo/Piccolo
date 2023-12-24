@@ -6,8 +6,8 @@
 #include "runtime/resource/config_manager/config_manager.h"
 
 #include "runtime/function/framework/level/level.h"
-#include "runtime/function/global/global_context.h"
 #include "runtime/function/framework/level/level_debugger.h"
+#include "runtime/function/global/global_context.h"
 
 #include "_generated/serializer/all_serializer.h"
 
@@ -20,7 +20,7 @@ namespace Piccolo
         m_is_world_loaded   = false;
         m_current_world_url = g_runtime_global_context.m_config_manager->getDefaultWorldUrl();
 
-        //debugger
+        // debugger
         m_level_debugger = std::make_shared<LevelDebugger>();
     }
 
@@ -40,18 +40,21 @@ namespace Piccolo
         m_current_world_url.clear();
         m_is_world_loaded = false;
 
-        //clear debugger
+        // clear debugger
         m_level_debugger.reset();
     }
 
     void WorldManager::tick(float delta_time)
     {
+        // load world if not loaded
+        // 如果世界没有加载，就加载世界（根据world url）
         if (!m_is_world_loaded)
         {
             loadWorld(m_current_world_url);
         }
 
         // tick the active level
+        // 然后找到当前活跃的level，然后tick它
         std::shared_ptr<Level> active_level = m_current_active_level.lock();
         if (active_level)
         {
@@ -105,7 +108,7 @@ namespace Piccolo
     {
         std::shared_ptr<Level> level = std::make_shared<Level>();
         // set current level temporary
-        m_current_active_level       = level;
+        m_current_active_level = level;
 
         const bool is_level_load_success = level->load(level_url);
         if (is_level_load_success == false)

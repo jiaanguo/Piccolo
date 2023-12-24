@@ -80,6 +80,8 @@ namespace Piccolo
         {
             LOG_ERROR("Can't find target field.");
         }
+
+        return T();
     }
 
     void LuaComponent::invoke(std::weak_ptr<GObject> game_object, const char* name)
@@ -148,6 +150,8 @@ namespace Piccolo
     void LuaComponent::postLoadResource(std::weak_ptr<GObject> parent_object)
     {
         m_parent_object = parent_object;
+
+        // init lua state with some basic lua functions
         m_lua_state.open_libraries(sol::lib::base);
         m_lua_state.set_function("set_float", &LuaComponent::set<float>);
         m_lua_state.set_function("get_bool", &LuaComponent::get<bool>);
@@ -158,6 +162,8 @@ namespace Piccolo
     void LuaComponent::tick(float delta_time)
     {
         // LOG_INFO(m_lua_script);
+
+        // use m_lua_script to run actual lua script
         m_lua_state.script(m_lua_script);
     }
 

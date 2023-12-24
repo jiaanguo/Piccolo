@@ -25,6 +25,10 @@ namespace Piccolo
     {
     public:
         // create all global systems and initialize these systems
+        // 实例化和初始化所有的下列系统（system）和管理器（manager）
+        // system 更多是实际需要的的系统，manager 更多是游戏逻辑需要的系统
+        // 例如：窗口系统，渲染系统，输入系统，文件系统，日志系统
+        // 例如：物理管理器，粒子管理器，世界管理器，配置管理器，资源管理器
         void startSystems(const std::string& config_file_path);
         // destroy all global systems
         void shutdownSystems();

@@ -24,7 +24,11 @@ namespace Piccolo
 
         static void invoke(std::weak_ptr<GObject> game_object, const char* name);
     protected:
+
+        // 用 SOL2 库来执行lua脚本
         sol::state m_lua_state;
+
+        // 提醒piccolo parser，这个字段(m_lua_script)需要序列化
         META(Enable)
         std::string m_lua_script;
     };
